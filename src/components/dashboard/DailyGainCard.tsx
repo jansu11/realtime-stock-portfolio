@@ -35,7 +35,7 @@ const DailyGainCard: React.FC<Props> = ({ stocks = [] }) => {
     const Icon = isLoss ? TrendingDown : TrendingUp;
 
     return (
-        <Card className="bg-gradient-to-r from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 shadow-lg rounded-xl p-6 h-full">
+        <Card className="bg-gradient-to-r from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 shadow-lg rounded-xl p-2 h-72 ">
             <CardHeader className="text-xl md:text-3xl font-semibold text-gray-700 dark:text-gray-200 text-center">
                 Daily Loss Gain
             </CardHeader>

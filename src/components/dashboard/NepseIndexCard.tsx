@@ -23,7 +23,7 @@ const NepseIndexCard: React.FC<Props> =  ({ stockData }) => {
 
   
    return (
-    <Card className=" bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 mt-8 py-10 md:mt-0 md:h-full h-64  ">
+    <Card className=" bg-gradient-to-r dark:from-gray-800 dark:to-gray-900 p-10 h-72">
       <CardHeader className="flex flex-row items-center justify-center pb-2">
         <CardTitle className="sm:text-xl lg:text-4xl font-bold dark:text-white">
            NEPSE
@@ -31,8 +31,8 @@ const NepseIndexCard: React.FC<Props> =  ({ stockData }) => {
         <Activity className="h-5 ml-2 w-5 text-green-500 dark:text-green-400" />
       </CardHeader>
       <CardContent className='p-0 '>
-        <div className="flex flex-col py-10  items-center justify-between">
-          <div className={`text-5xl md:text-7xl font-bold `}>
+        <div className="flex flex-col py-10  items-center justify-between mb-2">
+          <div className={`text-5xl md:text-7xl font-bold mb-2 `}>
             {stockData.indexValue?.toFixed(2) ?? "0.00"}
           </div>
           <div className={`flex items-center`}>

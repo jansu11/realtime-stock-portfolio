@@ -15,3 +15,10 @@ export interface SectorLeader {
   sectorName: string;
   _id?: string;
 }
+
+export interface Chart {
+  symbol : string,
+  ltp : number,
+  change: number,
+  imageUrl : string
+}
