@@ -13,10 +13,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { StockPosition, WatchlistStock, SectorLeader } from '@/types';
+import { StockPosition, WatchlistStock, SectorLeader, TradeHistory } from '@/types';
+import OrderExit  from '@/components/admin/OrderExit';
 
 const AdminDashboard = () => {
   // Form States
+
+
+  const [exitData, setExitData] = useState<{[key:string] : {price:number; quantity: number}}> ({});
+
+  
   const [position, setPosition] = useState<Omit<StockPosition, '_id'>>({
     date: '',
     price: 0,
@@ -47,7 +53,7 @@ const AdminDashboard = () => {
     const fetchData = async (): Promise<void> => {
     try {
       const [positionsRes, watchlistRes, sectorsRes] = await Promise.all([
-        fetch('http://localhost:8000/api/stocks/positions'),
+        fetch('http://localhost:8000/api/stocks/agg-position'),
         fetch('http://localhost:8000/api/stocks/watchlist'),
         fetch('http://localhost:8000/api/stocks/sector-leaders')
       ]);
@@ -126,6 +132,73 @@ const AdminDashboard = () => {
         ...prev, [name]:value
       }))
     }
+    const handlePriceChange = (id: string, price: number) => {
+      console.log(price,id)
+    setExitData((prev) => ({
+      ...prev,
+      [id]: { ...prev[id], price},
+    }));
+    };
+
+
+    const handleQuantityChange = (id: string, quantity: number) => {
+      console.log(quantity,id)
+      setExitData((prev) => ({
+        ...prev,
+        [id]: { ...prev[id], quantity },
+      }));
+    };
+
+    const handleClosePosition = async (id: string, position_data: StockPosition) => {
+      const exitPrice = exitData[id]?.price ?? 0;
+      const exitQuantity = exitData[id]?.quantity ?? 0;
+
+
+      console.log(`Closing position for ${id} at $${exitPrice} with ${exitQuantity} quantity`);
+
+      // API call can be made here to close the position
+      var trade_data:TradeHistory = {
+        
+        _id : position_data._id,
+        symbol : position_data.symbol,
+        purchase_price : position_data.price,
+        quantity : exitQuantity,
+        sell_price : exitPrice,
+        exit_date  : new Date(),
+        
+      }
+
+      console.log(trade_data)
+      try{
+        const response = await fetch('http://localhost:8000/api/stocks/close-position',
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(trade_data)
+          }
+        );
+
+        if (!response.ok){
+          console.log('error')
+          
+        }
+
+        const result = await response.json();
+        console.log("Trade history saved", result)
+
+
+      } catch (e) {
+
+        console.log('error : ',e)
+      }
+      
+
+      console.log(trade_data)
+
+      // Remove the closed position from the list
+    };
 
   return (
     <div className="container mx-auto p-4">
@@ -241,7 +314,6 @@ const AdminDashboard = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Date</TableHead>
                     <TableHead>Symbol</TableHead>
                     <TableHead>Price</TableHead>
                     <TableHead>Quantity</TableHead>
@@ -250,10 +322,39 @@ const AdminDashboard = () => {
                 <TableBody>
                   {positions.map((pos) => (
                     <TableRow key={pos._id}>
-                      <TableCell>{new Date(pos.date).toLocaleDateString()}</TableCell>
                       <TableCell>{pos.symbol}</TableCell>
                       <TableCell>${pos.price.toFixed(2)}</TableCell>
                       <TableCell>{pos.quantity}</TableCell>
+                      <TableCell>
+                        {
+                          pos._id !== undefined && (
+                            <OrderExit 
+                              price={exitData[pos._id]?.price ?? pos.price.toFixed(2)}
+                              quantity={exitData[pos._id]?.quantity ?? pos.quantity}
+                              onPriceChange={(value) => {
+                                 if(pos._id)
+                                 {
+                                  handlePriceChange(pos._id ,value)}
+                              }}
+
+                              onQuantityChange={(value) => 
+                              {
+                                if(pos._id)
+                                  handleQuantityChange(pos._id, value )
+                              }
+                              }
+
+                              onClosePosition={() => 
+                              {
+                                if(pos._id)
+                                  handleClosePosition(pos._id, pos )}
+
+                              }
+                            />
+
+                          )
+                        }
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

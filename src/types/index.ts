@@ -22,3 +22,12 @@ export interface Chart {
   change: number,
   imageUrl : string
 }
+
+export interface TradeHistory {
+  _id?: string,
+  symbol : string, 
+  quantity: number,
+  purchase_price: number, 
+  sell_price: number,
+  exit_date: Date
+}

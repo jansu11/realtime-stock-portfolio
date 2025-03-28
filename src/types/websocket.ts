@@ -55,8 +55,8 @@ export const isWebSocketMessage = (data: any): data is WebSocketMessage => {
 
 
 export interface StockData {
-  avgPrice: number;
-  totalQuantity: number;
+  price: number;
+  quantity: number;
   symbol: string;
   volume: number;
   ltp: number; // Last Traded Price

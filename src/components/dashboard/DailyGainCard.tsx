@@ -15,11 +15,11 @@ const DailyGainCard: React.FC<Props> = ({ stocks = [] }) => {
     let totalMarketValue = 0;
     let weightedPercentReturn = 0;
     const finalAmount = stocks.reduce(
-        (acc, stock) => acc + stock.change * stock.totalQuantity,
+        (acc, stock) => acc + stock.change * stock.quantity,
         0       
     );
     stocks.forEach(stock => {
-        const stockValue = stock.totalQuantity * stock.ltp;
+        const stockValue = stock.quantity * stock.ltp;
         totalMarketValue += stockValue;
         weightedPercentReturn += stock.percentChange * stockValue;
     });
