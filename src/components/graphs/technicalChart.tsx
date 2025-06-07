@@ -13,7 +13,6 @@ export interface Chart {
 const TechChart = () => {
   const [mergedData, setMergedData] = useState<Chart[]>([]);
   const { filteredStocks } = useFilteredMarketData(); // Fetch stocks from API
-  console.log(filteredStocks)
 
   useEffect(() => {
     if (!filteredStocks.length) return; // Avoid running when data is empty

@@ -15,13 +15,11 @@ export function useFilteredMarketData() {
   const [filteredSectors, setFilteredSectors] = useState<IndexData[]>([]);
   const [filteredWatchlists, setFilteredWatchlists] = useState<StockData[]>([]);
 
-  console.log(stockPositions)
   // Function to filter relevant stocks
    const filterRelevantStocks = (stocksData: StockData[]) => {
 
     if (!stocksData || !watchlist || !stockPositions) return [];
     const stockPositionsMap = new Map(stockPositions.map(stock => [stock.symbol, stock]));
-    console.log(stockPositionsMap)
 
     return ( stocksData
       .filter(stock => stockPositionsMap.has(stock.symbol))
@@ -52,12 +50,10 @@ export function useFilteredMarketData() {
 
   useEffect(() => {
     if (data && isWebSocketMessage(data)) {
-      console.log("WebSocket Data:", data);
 
       setIndices(data.indices);
       setStocks(data.stock);
       // Filter stocks and sectors
-      console.log(filterRelevantStocks(data.stock))
       setFilteredStocks(filterRelevantStocks(data.stock));
       setFilteredSectors(filterRelevantSectors(data.indices));
       setFilteredWatchlists(filterRelevantWatchlist(data.stock))

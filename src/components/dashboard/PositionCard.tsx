@@ -11,7 +11,6 @@ const PositionCard: React.FC<Props> = ({ position }) => {
     if (!position) {
         return <div className="text-red-500 text-center font-medium">No positions available</div>;
     }
-    console.log(position,'from position card')
 
     const profit = position.quantity * (position.ltp - position.price);
     const marketValue = position.quantity * position.ltp;

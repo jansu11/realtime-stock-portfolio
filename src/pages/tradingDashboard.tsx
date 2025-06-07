@@ -6,6 +6,7 @@ import DarkModeToggle from '@/components/dashboard/DarkModeToggle';
 import NepseIndexCard from '@/components/dashboard/NepseIndexCard';
 import PositionCard from '@/components/dashboard/PositionCard';
 import WatchlistItem from '@/components/dashboard/WatchlistItem';
+import ValuationCard from '@/components/dashboard/ValuationCard';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { useFilteredMarketData } from "@/hooks/useFilteredStocks";
 import LeadingSectorCard from '@/components/dashboard/LeadingSectorCard';
@@ -16,13 +17,12 @@ import TechChart from '@/components/graphs/technicalChart';
 const TradingDashboard = () => {
 
   const { filteredWatchlists,filteredStocks, filteredSectors, isConnected, isError } = useFilteredMarketData();
-  console.log(filteredStocks)
 
   // Simulated data
 
 
   return (
-  <div className="flex flex-col max-h-[100vh]  transition-colors md:px-16 md:my-10 duration-200  dark:bg-gray-900 bg-gray-50 ">
+  <div className="flex flex-col max-h-[100vh] transition-colors md:px-16 md:my-10 duration-200  dark:bg-gray-900 bg-gray-50 ">
     <div>
       <TechChart/>
     </div>
@@ -35,7 +35,7 @@ const TradingDashboard = () => {
           <DarkModeToggle />
         </div>
         
-        <div className='flex w-3/4 mx-auto'>
+        <div className='flex w-full mx-auto'>
           <div className='m-2 p-2'>
             <NepseIndexCard  stockData={filteredSectors[0]}  />
           </div>
@@ -44,6 +44,9 @@ const TradingDashboard = () => {
           </div>
           <div className='m-2 p-2'>
             <DailyGainCard stocks = {filteredStocks}></DailyGainCard>
+          </div>
+          <div className='m-2 p-2'>
+            <ValuationCard stocks = {filteredStocks}/>
           </div>
           <div className='flex flex-grow  m-2 p-2 h-72'>
             <Card className="bg-white dark:bg-gray-800 flex-1">

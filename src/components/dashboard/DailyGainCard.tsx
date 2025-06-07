@@ -37,7 +37,7 @@ const DailyGainCard: React.FC<Props> = ({ stocks = [] }) => {
     return (
         <Card className="bg-gradient-to-r from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 shadow-lg rounded-xl p-2 h-72 ">
             <CardHeader className="text-xl md:text-3xl font-semibold text-gray-700 dark:text-gray-200 text-center">
-                Daily Loss Gain
+                Today's Gain
             </CardHeader>
             <CardContent className="flex flex-col items-center gap-3">
                 <div className="flex items-center gap-2 text-lg font-medium text-gray-600 dark:text-gray-300">
@@ -45,7 +45,7 @@ const DailyGainCard: React.FC<Props> = ({ stocks = [] }) => {
                     <span className={amountColor}>{isLoss ? "Loss" : "Profit"}</span>
                 </div>
                 <div className={`text-3xl md:text-6xl font-bold ${amountColor}`}>
-                    {finalAmount.toFixed(2)} RS
+                    {finalAmount.toFixed(2)} 
                 </div>
                 <div className={`text-lg md:text-2xl ${amountColor}`}>
                     {totalPercentReturn.toFixed(2)}% Return
