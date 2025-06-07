@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/table";
 import { StockPosition, WatchlistStock, SectorLeader, TradeHistory } from '@/types';
 import OrderExit  from '@/components/admin/OrderExit';
+import apiUrl from '@/config/api';
 
 const AdminDashboard = () => {
   // Form States
@@ -53,9 +54,9 @@ const AdminDashboard = () => {
     const fetchData = async (): Promise<void> => {
     try {
       const [positionsRes, watchlistRes, sectorsRes] = await Promise.all([
-        fetch('http://localhost:8000/api/stocks/agg-position'),
-        fetch('http://localhost:8000/api/stocks/watchlist'),
-        fetch('http://localhost:8000/api/stocks/sector-leaders')
+        fetch(`${apiUrl}/api/stocks/agg-position`),
+        fetch(`${apiUrl}/api/stocks/watchlist`),
+        fetch(`${apiUrl}/api/stocks/sector-leaders`)
       ]);
 
       const [positionsData, watchlistData, sectorsData] = await Promise.all([
@@ -79,7 +80,7 @@ const AdminDashboard = () => {
     setLoading(true);
     setMessage('');
     try {
-      const response = await fetch(`http://localhost:8000/api/stocks/${type}`, {
+      const response = await fetch(`${apiUrl}/api/stocks/${type}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -170,7 +171,7 @@ const AdminDashboard = () => {
 
       console.log(trade_data)
       try{
-        const response = await fetch('http://localhost:8000/api/stocks/close-position',
+        const response = await fetch(`${apiUrl}/api/stocks/close-position`,
           {
             method: "POST",
             headers: {

@@ -1,7 +1,8 @@
 import { SectorLeader, StockPosition, WatchlistStock } from "@/types";
 import { useState, useEffect } from "react";
+import apiUrl from "@/config/api";
 
-const API_URL = "http://localhost:8000/api/stocks/";
+const API_URL = `${apiUrl}/api/stocks/`;
 
 export const useFetchData = () => {
   const [stockPositions, setOrderPositions] = useState<StockPosition[]>([]);
