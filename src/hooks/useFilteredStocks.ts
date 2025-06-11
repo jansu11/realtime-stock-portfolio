@@ -7,7 +7,7 @@ import { StockPosition } from "@/types";
 
 
 export function useFilteredMarketData() {
-  const { data, isConnected, isError } = useWebSocket("ws://localhost:8080");
+  const { data, isConnected, isError } = useWebSocket("wss://ws.neptrends.com");
   const { stockPositions, sectorLeader, watchlist } = useFetchData();
   const [indices, setIndices] = useState<IndexData[]>([]);
   const [stocks, setStocks] = useState<StockData[]>([]);
@@ -15,6 +15,7 @@ export function useFilteredMarketData() {
   const [filteredSectors, setFilteredSectors] = useState<IndexData[]>([]);
   const [filteredWatchlists, setFilteredWatchlists] = useState<StockData[]>([]);
 
+  
   // Function to filter relevant stocks
    const filterRelevantStocks = (stocksData: StockData[]) => {
 
