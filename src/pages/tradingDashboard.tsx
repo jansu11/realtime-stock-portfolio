@@ -43,7 +43,7 @@ const TradingDashboard = () => {
 
   return (
     <div className="flex flex-col min-h-screen transition-colors px-4 md:px-16 py-6 dark:bg-gray-900 bg-gray-50 overflow-x-hidden">
-      <div className="mb-4">
+      <div className="w-full mb-4">
         <TechChart />
       </div>
 

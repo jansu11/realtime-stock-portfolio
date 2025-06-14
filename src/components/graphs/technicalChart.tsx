@@ -10,12 +10,13 @@ export interface Chart {
   imageUrl: string;
 }
 
+
 const TechChart = () => {
   const [mergedData, setMergedData] = useState<Chart[]>([]);
-  const { filteredStocks } = useFilteredMarketData(); // Fetch stocks from API
+  const { filteredStocks } = useFilteredMarketData();
 
   useEffect(() => {
-    if (!filteredStocks.length) return; // Avoid running when data is empty
+    if (!filteredStocks.length) return;
 
     try {
       const combinedData = filteredStocks.map((stock) => {
@@ -32,15 +33,17 @@ const TechChart = () => {
     } catch (err) {
       console.error("Error processing stock data", err);
     }
-  }, [filteredStocks]); // Runs when `filteredStocks` changes
+  }, [filteredStocks]);
 
   return (
-    <div className="flex   min-h-[40vh]">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
       {mergedData.map((stock) => (
-        <Graph key={stock.symbol} stockdata = {stock}/>
+        <Graph key={stock.symbol} stockdata={stock} />
       ))}
     </div>
   );
 };
+
+
 
 export default TechChart;
