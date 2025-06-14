@@ -35,8 +35,8 @@ const DailyGainCard: React.FC<Props> = ({ stocks = [] }) => {
     const Icon = isLoss ? TrendingDown : TrendingUp;
 
     return (
-        <Card className="bg-gradient-to-r from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 shadow-lg rounded-xl p-2 h-72 ">
-            <CardHeader className="text-xl md:text-3xl font-semibold text-gray-700 dark:text-gray-200 text-center">
+        <Card className="bg-gradient-to-r from-gray-50 to-gray-200 dark:from-gray-800 dark:to-gray-900 shadow-lg rounded-xl p-6 md:p-8 lg:p-10 h-auto  ">
+            <CardHeader className="text-lg md:text-2xl lg:text-3xl font-semibold text-gray-700 dark:text-gray-200 text-center">
                 Today's Gain
             </CardHeader>
             <CardContent className="flex flex-col items-center gap-3">
@@ -44,7 +44,7 @@ const DailyGainCard: React.FC<Props> = ({ stocks = [] }) => {
                     <Icon size={24} className={amountColor} />
                     <span className={amountColor}>{isLoss ? "Loss" : "Profit"}</span>
                 </div>
-                <div className={`text-3xl md:text-6xl font-bold ${amountColor}`}>
+                <div className={`text-3xl md:text-5xl lg:text-6xl font-bold  ${amountColor}`}>
                     {finalAmount.toFixed(2)} 
                 </div>
                 <div className={`text-lg md:text-2xl ${amountColor}`}>
